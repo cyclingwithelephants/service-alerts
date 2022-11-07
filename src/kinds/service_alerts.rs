@@ -28,7 +28,7 @@ const CUSTOM_RESOURCE_NAME: &str = "servicealerters.cactuar.rs";
     kind = "ServiceAlerter",
     namespaced,
     status = "ServiceAlerterStatus",
-    shortname = "servalert",
+    shortname = "servalert"
 )]
 pub struct ServiceAlerterSpec {
     pub common_labels: HashMap<String, String>,

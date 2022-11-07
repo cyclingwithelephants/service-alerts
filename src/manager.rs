@@ -1,15 +1,12 @@
-use crate::{telemetry, Error, Result};
+use crate::{
+    kinds::service_alerts::{
+        ServiceAlerter, ServiceAlerterStatus, API_GROUP, API_VERSION, FINALIZER_NAME, KIND,
+    },
+    telemetry, Error, Result,
+};
+use actix_web::web::service;
 use chrono::{DateTime, Utc};
 use futures::{future::BoxFuture, FutureExt, StreamExt};
-use crate::kinds::service_alerts::{
-    ServiceAlerter,
-    ServiceAlerterStatus,
-    API_VERSION,
-    API_GROUP,
-    KIND,
-    FINALIZER_NAME
-
-};
 use kube::{
     api::{Api, ListParams, Patch, PatchParams, ResourceExt},
     client::Client,
@@ -28,8 +25,11 @@ use schemars::JsonSchema;
 use serde::{Deserialize, Serialize};
 use serde_json::json;
 use std::sync::Arc;
-use actix_web::web::service;
-use tokio::{sync::RwLock, time::{Duration, Instant}, time};
+use tokio::{
+    sync::RwLock,
+    time,
+    time::{Duration, Instant},
+};
 use tracing::*;
 
 // static DOCUMENT_FINALIZER: &str = "documents.kube.rs";
@@ -116,8 +116,8 @@ impl ServiceAlerter {
         let docs: Api<ServiceAlerter> = Api::namespaced(client, &ns);
 
         // always overwrite status object with what we saw
-            std::time::Instant::now() + std::time::Duration::from_secs(30);
-            // + self.spec.reconciliation.interval;
+        std::time::Instant::now() + std::time::Duration::from_secs(30);
+        // + self.spec.reconciliation.interval;
         let new_status = Patch::Apply(json!({
             "apiVersion": format!("{}/{}", API_GROUP, API_VERSION),
             "kind": KIND,
