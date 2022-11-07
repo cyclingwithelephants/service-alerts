@@ -14,7 +14,7 @@ pub struct ControllerConfigSpec {
 
 pub struct Reconciliation {
     interval: Duration,
-    backend: AlertingBackend
+    backend: AlertingBackend,
 }
 
 pub enum AlertingBackend {

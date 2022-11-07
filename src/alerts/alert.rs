@@ -46,16 +46,12 @@ fn match_operation(operation: Operation) -> (HashMap<Severity, i32>) {
 // TODO: common labels
 // TODO: histogram percentiles
 // TODO: multiple operations
-pub fn newAlert(
-    alert_config: alert,
-    alertFiringDuration: &str,
-    summary: &str,
-    description: &str
-) -> String {
+pub fn newAlert(alert_config: alert, alertFiringDuration: &str, summary: &str, description: &str) -> String {
     let initial_string = String::from("");
 
     for (key, value) in alert_config.severity_and_threshold {
-        let template = Template::new("\
+        let template = Template::new(
+            "\
 - alert:
     expr: {{metric}} {{operation}} {{threshold}}
     for: {{alertFiringDuration}}
@@ -64,23 +60,20 @@ pub fn newAlert(
     annotations:
       summary: {{summary}}
       description: {{description}}
-");
-        let parameters = HashMap::from(
-            [
-                ("metric", alert_config.alert),
-                ("operation", alert_config.operation),
-                ("threshold",           value),
-                ("alertFiringDuration", alertFiringDuration),
-                ("severity", key),
-                ("summary", summary),
-                ("description", description),
-            ]
+",
         );
+        let parameters = HashMap::from([
+            ("metric", alert_config.alert),
+            ("operation", alert_config.operation),
+            ("threshold", value),
+            ("alertFiringDuration", alertFiringDuration),
+            ("severity", key),
+            ("summary", summary),
+            ("description", description),
+        ]);
         let rendered_text = template.render(&parameters).unwrap();
         initial_string.push_str(rendered_text);
-
     }
-
 
 
     return string;
