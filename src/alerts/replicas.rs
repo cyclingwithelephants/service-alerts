@@ -1,5 +1,5 @@
-use kinds::service_alerts::{Alert,Operation};
 use alert::newAlert;
+use kinds::service_alerts::{Alert, Operation};
 
 const SUMMARY: &str = "A brief summary";
 const DESCRIPTION: &str = "A more detailed description";
@@ -10,5 +10,4 @@ fn newReplicaAlerts(alert_config: Alert) -> String {
     let initial_string = String::from("");
 
     newAlert(alert_config, ALERT_FIRING_DURATION, SUMMARY, DESCRIPTION)
-
 }
