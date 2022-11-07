@@ -33,16 +33,16 @@ async fn index(c: Data<Manager>, _req: HttpRequest) -> impl Responder {
 #[tokio::main]
 async fn main() -> Result<()> {
     // Setup tracing layers
-    #[cfg(feature = "telemetry")]
-    let telemetry = tracing_opentelemetry::layer().with_tracer(telemetry::init_tracer().await);
+    // #[cfg(feature = "telemetry")]
+    // let telemetry = tracing_opentelemetry::layer().with_tracer(telemetry::init_tracer().await);
     let logger = tracing_subscriber::fmt::layer();
     let env_filter = EnvFilter::try_from_default_env()
         .or_else(|_| EnvFilter::try_new("info"))
         .unwrap();
 
     // Decide on layers
-    #[cfg(feature = "telemetry")]
-    let collector = Registry::default().with(telemetry).with(logger).with(env_filter);
+    // #[cfg(feature = "telemetry")]
+    // let collector = Registry::default().with(telemetry).with(logger).with(env_filter);
     #[cfg(not(feature = "telemetry"))]
     let collector = Registry::default().with(logger).with(env_filter);
 

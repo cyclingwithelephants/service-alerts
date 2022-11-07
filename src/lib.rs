@@ -14,8 +14,11 @@ pub type Result<T, E = Error> = std::result::Result<T, E>;
 pub mod manager;
 pub use manager::Manager;
 
-/// Generated type, for crdgen
-pub use manager::Document;
-
 /// Log and trace integrations
 pub mod telemetry;
+
+// pub use crate::kinds;
+pub mod kinds;
+
+// pub mod service_alerts;
+// pub use controller::kinds::service_alerts::*;

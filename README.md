@@ -68,7 +68,7 @@ In either of the run scenarios, your app is listening on port `8080`, and it wil
 Try some of:
 
 ```sh
-kubectl apply -f yaml/instance-lorem.yaml
+kubectl apply -f yaml/exampleServiceAlerter.yaml
 kubectl delete doc lorem
 kubectl edit doc lorem # change hidden
 ```
@@ -79,7 +79,7 @@ The reconciler will run and write the status object on every change. You should 
 The sample web server exposes some example metrics and debug information you can inspect with `curl`.
 
 ```sh
-$ kubectl apply -f yaml/instance-lorem.yaml
+$ kubectl apply -f yaml/exampleServiceAlerter.yaml
 $ curl 0.0.0.0:8080/metrics
 # HELP doc_controller_reconcile_duration_seconds The duration of reconcile to complete in seconds
 # TYPE doc_controller_reconcile_duration_seconds histogram

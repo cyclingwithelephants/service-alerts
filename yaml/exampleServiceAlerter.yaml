@@ -1,0 +1,14 @@
+apiVersion: cactuar.rs/v1alpha1
+kind: ServiceAlerter
+metadata:
+  name: fubar-alerter
+spec:
+  commonLabels:
+    origin: cloud
+    owner: bar
+  serviceSelector:
+    name: fubar-service
+  alerts:
+    - replicas:
+        equalTo:
+          critical: 0
